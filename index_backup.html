@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chye Yan Tong — AI Security Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #080808;
+            --text: #ffffff;
+            --text-dim: #666666;
+            --accent: #00f0ff;
+            --accent-glow: rgba(0, 240, 255, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            cursor: default;
+        }
+
+        /* Noise overlay - subtler */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Premium glow auras */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .glow-orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-glow);
+            top: -200px;
+            right: -200px;
+        }
+
+        .glow-orb-2 {
+            width: 500px;
+            height: 500px;
+            background: rgba(147, 51, 234, 0.1);
+            bottom: -150px;
+            left: -150px;
+        }
+
+        /* Custom cursor */
+        .custom-cursor {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, width 0.15s ease, height 0.15s ease;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .custom-cursor.hover {
+            transform: scale(3);
+            background: rgba(0, 240, 255, 0.3);
+        }
+
+        /* Brutalist text styles */
+        .text-brutal {
+            font-weight: 900;
+            letter-spacing: -0.06em;
+            line-height: 0.85;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Text glow effect on brutal text */
+        .text-brutal::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            filter: blur(40px);
+            opacity: 0.3;
+        }
+
+        .text-mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        /* Marquee animation */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+
+        /* Reveal animation */
+        @keyframes revealUp {
+            from {
+                clip-path: inset(100% 0 0 0);
+            }
+            to {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        .reveal-text {
+            animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Glitch effect on hover */
+        .glitch-hover:hover {
+            animation: glitch 0.3s ease;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Link hover effect */
+        .link-hover {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .link-hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .link-hover:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Corner tech specs */
+        .corner-spec {
+            position: fixed;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            z-index: 100;
+        }
+
+        .corner-spec span {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Blinking indicator */
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .blink {
+            animation: blink 2s infinite;
+        }
+
+        /* Scroll indicator */
+        .scroll-line {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            animation: scrollDown 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollDown {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(400%); }
+        }
+
+        /* Loading screen */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            margin-top: 1rem;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .loader-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+            animation: load 1.5s ease-in-out forwards;
+        }
+
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        /* Responsive typography */
+        @media (max-width: 768px) {
+            .text-brutal {
+                font-size: 15vw;
+            }
+
+            .corner-spec {
+                font-size: 0.5rem;
+            }
+
+            .hero-title-small {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* Readable paragraph text */
+        .readable-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.02em;
+        }
+
+        .readable-text li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Project descriptions */
+        .project-desc {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 600px;
+        }
+
+        /* Section label */
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Date style */
+        .date-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.05em;
+        }
+
+        .date-text span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Premium Glow Orbs -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="text-center">
+            <div class="loader-text">Initializing</div>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Corner Tech Specs -->
+    <div class="corner-spec" style="top: 2rem; left: 2rem;">
+        <span class="blink">●</span> SYSTEM ONLINE
+    </div>
+    <div class="corner-spec" style="top: 2rem; right: 2rem; text-align: right;">
+        V.2.0.26<br>
+        <span>KUL</span> // MY
+    </div>
+    <div class="corner-spec" style="bottom: 2rem; left: 2rem;">
+        LAT: 3.1412 // LONG: 101.6869
+    </div>
+    <div class="corner-spec" style="bottom: 2rem; right: 2rem; text-align: right;">
+        <span>AI.SEC.ENG</span><br>
+        MAYBANK_HQ
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen relative flex flex-col justify-center px-6 md:px-12 lg:px-20 py-32">
+
+        <!-- Massive Name -->
+        <div class="relative">
+            <h1 class="text-brutal text-white text-[12vw] md:text-[10vw] leading-none reveal-text" data-text="CHYE YAN">
+                CHYE YAN
+            </h1>
+            <h1 class="text-brutal text-white text-[12vw] md:text-[10vw] leading-none reveal-text delay-1" style="margin-left: 10vw;" data-text="TONG.">
+                TONG<span style="color: var(--accent); text-shadow: 0 0 30px var(--accent-glow);">.</span>
+            </h1>
+
+            <!-- Decorative line -->
+            <div class="absolute top-1/2 -translate-y-1/2 left-[calc(100%-2rem)] w-32 h-px bg-gradient-to-r from-cyan-400/50 to-transparent hidden lg:block reveal-text delay-2"></div>
+        </div>
+
+        <!-- Role Title - Asymmetrical -->
+        <div class="mt-8 md:mt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <div class="reveal-text delay-2">
+                <p class="hero-title-small text-mono mb-2" style="font-size: 0.65rem; color: rgba(255,255,255,0.4);">
+                    [CURRENT_POSITION]
+                </p>
+                <h2 class="text-white text-xl md:text-2xl font-light tracking-tight">
+                    AI Security Engineer <span style="color: rgba(255,255,255,0.3);">//</span> Maybank
+                </h2>
+                <p class="text-mono mt-4" style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">
+                    Kuala Lumpur, Malaysia
+                </p>
+            </div>
+
+            <div class="reveal-text delay-3">
+                <p class="text-mono max-w-xs" style="color: rgba(255,255,255,0.4); font-size: 0.75rem; line-height: 1.8;">
+                    Building secure systems.<br>
+                    Breaking them down.<br>
+                    <span style="color: var(--accent);">Repeat.</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 reveal-text delay-3">
+            <div class="scroll-line"></div>
+            <p class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">SCROLL</p>
+        </div>
+
+        <!-- Quick Actions - Bottom Right -->
+        <div class="absolute bottom-12 right-12 flex flex-col items-end gap-4 reveal-text delay-3 hidden md:flex">
+            <a href="mailto:chyeyantong03@gmail.com" class="link-hover text-mono text-xs" style="color: rgba(255,255,255,0.5);">
+                ✉ chyeyantong03@gmail.com
+            </a>
+            <a href="https://linkedin.com/in/yantongchye" target="_blank" class="link-hover text-mono text-xs" style="color: rgba(255,255,255,0.5);">
+                💼 LinkedIn
+            </a>
+            <a href="https://github.com/yantongggg" target="_blank" class="link-hover text-mono text-xs" style="color: rgba(255,255,255,0.5);">
+                🐙 GitHub
+            </a>
+        </div>
+    </section>
+
+    <!-- Marquee Divider -->
+    <div class="py-8 border-y border-white/5 overflow-hidden">
+        <div class="marquee-track whitespace-nowrap">
+            <span class="text-brutal text-white/5 text-8xl mx-8">AI SECURITY ENGINEER</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">•</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">PENETRATION TESTER</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">•</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">BUG BOUNTY HUNTER</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">•</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">AI SECURITY ENGINEER</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">•</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">PENETRATION TESTER</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">•</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">BUG BOUNTY HUNTER</span>
+            <span class="text-brutal text-white/5 text-8xl mx-8">•</span>
+        </div>
+    </div>
+
+    <!-- Experience Section -->
+    <section class="py-32 px-6 md:px-12 lg:px-20 relative" id="experience">
+        <!-- Section Label -->
+        <div class="flex items-center gap-4 mb-20">
+            <span class="section-label">01</span>
+            <span class="text-mono text-white/20" style="font-size: 0.65rem;">// EXPERIENCE_LOG</span>
+        </div>
+
+        <!-- Experience 1: AI Security Engineer -->
+        <div class="group relative py-12 border-b border-white/5 cursor-none">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Date -->
+                <div class="lg:col-span-2 date-text pt-2">
+                    2026.01 — <span>PRESENT</span>
+                </div>
+
+                <!-- Job Title -->
+                <div class="lg:col-span-7">
+                    <h2 class="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="AI SECURITY ENGINEER">
+                        AI SECURITY<br>ENGINEER
+                    </h2>
+                </div>
+
+                <!-- Company -->
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <p class="text-mono text-sm" style="color: rgba(255,255,255,0.3);">LOCATION</p>
+                    <p class="text-white text-lg mt-1">Maybank HQ</p>
+                    <p class="text-mono text-xs mt-1" style="color: var(--accent);">Menara Maybank, KL</p>
+                </div>
+            </div>
+
+            <!-- Description (reveals on hover) -->
+            <div class="mt-8 opacity-40 group-hover:opacity-100 transition-opacity duration-300">
+                <ul class="readable-text space-y-2 max-w-3xl">
+                    <li>> Develop and implement AI-driven security solutions within the AI Security Engineering team</li>
+                    <li>> Conduct offensive security assessments across web applications, APIs, and mobile platforms</li>
+                    <li>> Active bug bounty researcher with confirmed vulnerabilities on Bugcrowd and GitHub</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Experience 2: Cybersecurity Intern -->
+        <div class="group relative py-12 border-b border-white/5 cursor-none">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-2 date-text pt-2">
+                    2024.08 — 2024.11
+                </div>
+
+                <div class="lg:col-span-7">
+                    <h2 class="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="CYBERSECURITY INTERN">
+                        CYBERSECURITY<br>INTERN
+                    </h2>
+                </div>
+
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <p class="text-mono text-sm" style="color: rgba(255,255,255,0.3);">LOCATION</p>
+                    <p class="text-white text-lg mt-1">Maybank HQ</p>
+                    <p class="text-mono text-xs mt-1" style="color: var(--accent);">Menara Maybank, KL</p>
+                </div>
+            </div>
+
+            <div class="mt-8 opacity-40 group-hover:opacity-100 transition-opacity duration-300">
+                <ul class="readable-text space-y-2 max-w-3xl">
+                    <li>> Performed internal penetration testing on web, mobile, API, infrastructure, and NAC systems</li>
+                    <li>> Discovered critical vulnerabilities in payment APIs, OTP flows, and wireless networks</li>
+                    <li>> Delivered security reports aligned with Bank Negara Malaysia (BNM) RMiT standards</li>
+                    <li>> Strengthened internal cyber resilience through vulnerability assessment and exploit validation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Experience 3: Cloud Trainee -->
+        <div class="group relative py-12 border-b border-white/5 cursor-none">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-2 date-text pt-2">
+                    2024.06 — 2024.07
+                </div>
+
+                <div class="lg:col-span-7">
+                    <h2 class="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="CLOUD TRAINEE">
+                        CLOUD TRAINEE
+                    </h2>
+                </div>
+
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <p class="text-mono text-sm" style="color: rgba(255,255,255,0.3);">PROGRAM</p>
+                    <p class="text-white text-lg mt-1">AWS re/Start</p>
+                    <p class="text-mono text-xs mt-1" style="color: var(--accent);">PayNet</p>
+                </div>
+            </div>
+
+            <div class="mt-8 opacity-40 group-hover:opacity-100 transition-opacity duration-300">
+                <ul class="readable-text space-y-2 max-w-3xl">
+                    <li>> Trained in AWS compute, storage, networking, and security fundamentals</li>
+                    <li>> Deployed cloud services (EC2, IAM, RDS, S3) and monitoring with CloudWatch</li>
+                    <li>> Earned AWS Certified Cloud Practitioner credential</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="py-32 px-6 md:px-12 lg:px-20 relative" id="projects">
+        <!-- Section Label -->
+        <div class="flex items-center gap-4 mb-20">
+            <span class="section-label">02</span>
+            <span class="text-mono text-white/20" style="font-size: 0.65rem;">// PROJECT_DEPLOYMENTS</span>
+        </div>
+
+        <!-- Projects List -->
+        <div class="project-item group relative py-16 border-b border-white/5 cursor-none" data-project="mylayak">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Badge -->
+                <div class="lg:col-span-2">
+                    <span class="text-mono text-xs" style="color: var(--accent);">🏆 CHAMPION</span>
+                </div>
+
+                <!-- Project Name -->
+                <div class="lg:col-span-7">
+                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="MyLayak">
+                        MyLayak
+                    </h2>
+                    <p class="text-mono text-xs mt-4" style="color: rgba(255,255,255,0.3);">GODAMLAH! 2.0 // ZERO-TRUST ELIGIBILITY PLATFORM</p>
+                    <p class="project-desc mt-4">
+                        Zero-trust platform for government subsidy discovery with dual-layer steganographic QR authentication and Soulbound Eligibility Tokens (SETs) with BB84 quantum key distribution.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">React</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">TypeScript</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">Node.js</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">QKD</span>
+                    </div>
+                </div>
+
+                <!-- Year -->
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <span class="text-mono text-4xl font-black" style="color: var(--accent);">25</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-item group relative py-16 border-b border-white/5 cursor-none" data-project="ekyc">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-2">
+                    <span class="text-mono text-xs" style="color: var(--accent);">🥇 GOLD AWARD</span>
+                    <p class="text-mono text-xs mt-2" style="color: rgba(255,255,255,0.2);">FYP</p>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="eKYC">
+                        eKYC
+                    </h2>
+                    <p class="text-mono text-xs mt-4" style="color: rgba(255,255,255,0.3);">BIOMETRIC AUTHENTICATION SYSTEM</p>
+                    <p class="project-desc mt-4">
+                        Multi-modal biometric framework with facial recognition, liveness detection (EAR/MAR + landmark dynamics), and behavioral biometrics for AI-resilient identity verification.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">React</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">Python ML</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">AES-256</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <span class="text-mono text-4xl font-black" style="color: var(--accent);">26</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-item group relative py-16 border-b border-white/5 cursor-none" data-project="luna">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-2">
+                    <span class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">🏅 FINALIST</span>
+                    <p class="text-mono text-xs mt-2" style="color: rgba(255,255,255,0.2);">BLUEPRINT</p>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="LUNA">
+                        LUNA
+                    </h2>
+                    <p class="text-mono text-xs mt-4" style="color: rgba(255,255,255,0.3);">WOMEN'S SAFETY APP</p>
+                    <p class="project-desc mt-4">
+                        Safety application disguised as period tracker with encrypted evidence vault, deepfake photo immunization using adversarial perturbation, and Gemini AI forensic analysis.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">React</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">Gemini Vision</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">Azure TTS</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <span class="text-mono text-4xl font-black" style="color: var(--accent);">26</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-item group relative py-16 border-b border-white/5 cursor-none" data-project="wira">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-2">
+                    <span class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">🏅 FINALIST</span>
+                    <p class="text-mono text-xs mt-2" style="color: rgba(255,255,255,0.2);">BLUEPRINT</p>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="Wira">
+                        Wira
+                    </h2>
+                    <p class="text-mono text-xs mt-4" style="color: rgba(255,255,255,0.3);">AI DISASTER RESILIENCE PLATFORM</p>
+                    <p class="project-desc mt-4">
+                        Gamified disaster preparedness platform for ASEAN with Possum Protocol — offline emergency toolkit with mesh networking and GPS sharing.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">React</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">Vite</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">Google Maps</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <span class="text-mono text-4xl font-black" style="color: var(--accent);">26</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-item group relative py-16 border-b border-white/5 cursor-none" data-project="quiep">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-2">
+                    <span class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">HACKATHON</span>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="QuIEP">
+                        QuIEP
+                    </h2>
+                    <p class="text-mono text-xs mt-4" style="color: rgba(255,255,255,0.3);">COMMUNITY ENERGY PLATFORM</p>
+                    <p class="project-desc mt-4">
+                        Rooftop solar potential assessment with Q-ORCA quantum-secure broadcast architecture for congestion-aware pricing and arc fault detection.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">Q-ORCA</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">P2P Trading</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <span class="text-mono text-4xl font-black" style="color: rgba(255,255,255,0.2);">—</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-item group relative py-16 border-b border-white/5 cursor-none" data-project="jetcycle">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-2">
+                    <span class="text-mono text-xs" style="color: var(--accent);">🏆 CHAMPION</span>
+                    <p class="text-mono text-xs mt-2" style="color: rgba(255,255,255,0.2);">BEST DEMO</p>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="JetCycle">
+                        JetCycle
+                    </h2>
+                    <p class="text-mono text-xs mt-4" style="color: rgba(255,255,255,0.3);">AI TECH SWAP STATION</p>
+                    <p class="project-desc mt-4">
+                        AI-powered e-waste kiosk with robotic arm for automated dismantling and component categorization. Champion + Best Slide/Demo at Sparkathon 2025.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">AI/ML</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">Robotics</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <span class="text-mono text-4xl font-black" style="color: var(--accent);">25</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-item group relative py-16 border-b border-white/5 cursor-none" data-project="trendify">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-2">
+                    <span class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">🏅 TOP 15</span>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tighter transition-all duration-300 group-hover:text-cyan-400 glitch-hover" data-text="Trendify">
+                        Trendify
+                    </h2>
+                    <p class="text-mono text-xs mt-4" style="color: rgba(255,255,255,0.3);">SUPPLY CHAIN INTELLIGENCE</p>
+                    <p class="project-desc mt-4">
+                        Data-driven supply chain intelligence platform with SAP technologies and predictive market modeling for Malaysian businesses.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">SAP</span>
+                        <span class="text-mono text-xs px-2 py-1 bg-white/5" style="border: 1px solid rgba(255,255,255,0.1);">Analytics</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 lg:text-right pt-4">
+                    <span class="text-mono text-4xl font-black" style="color: rgba(255,255,255,0.2);">25</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Arsenal Section -->
+    <section class="py-32 px-6 md:px-12 lg:px-20 relative" id="arsenal">
+        <!-- Section Label -->
+        <div class="flex items-center gap-4 mb-20">
+            <span class="section-label">03</span>
+            <span class="text-mono text-white/20" style="font-size: 0.65rem;">// THE ARSENAL</span>
+        </div>
+
+        <!-- Tech Stack Marquee -->
+        <div class="mb-32 overflow-hidden">
+            <div class="marquee-track whitespace-nowrap" style="animation-duration: 30s;">
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">PENETRATION TESTING</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">REACT</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">TYPESCRIPT</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">PYTHON</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">AI/ML SECURITY</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">ZERO TRUST</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">QKD</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">BURP SUITE</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">AWS</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">NODE</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">TAILWIND</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">WIRESHARK</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">PENETRATION TESTING</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">REACT</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">TYPESCRIPT</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">PYTHON</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">AI/ML SECURITY</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">ZERO TRUST</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">QKD</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">BURP SUITE</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none mx-8" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">•</span>
+                <span class="text-[15vw] md:text-[8rem] font-black text-transparent stroke-white leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">AWS</span>
+            </div>
+        </div>
+
+        <!-- Hacker Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-0" style="border: 1px solid rgba(255,255,255,0.08);">
+
+            <!-- Bug Bounty & CTF -->
+            <div class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/5 group hover:bg-white/[0.02] transition-colors duration-300">
+                <p class="text-mono text-xs mb-6" style="color: var(--accent);">// BUG_BOUNTY // CTF</p>
+                <div class="space-y-3">
+                    <div class="flex items-baseline gap-4">
+                        <span class="text-6xl md:text-7xl font-black text-white">3</span>
+                        <span class="text-mono text-xs" style="color: rgba(255,255,255,0.4);">CTFs COMPLETED</span>
+                    </div>
+                    <div class="flex items-baseline gap-4">
+                        <span class="text-4xl md:text-5xl font-black" style="color: var(--accent);">ACTIVE</span>
+                        <span class="text-mono text-xs" style="color: rgba(255,255,255,0.4);">RESEARCHER</span>
+                    </div>
+                </div>
+                <div class="mt-8 space-y-2">
+                    <p class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">• Bugcrowd</p>
+                    <p class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">• rEntas CTF</p>
+                    <p class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">• IWD CTF</p>
+                    <p class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">• picoCTF 2024</p>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/5 group hover:bg-white/[0.02] transition-colors duration-300">
+                <p class="text-mono text-xs mb-6" style="color: var(--accent);">// CERTIFICATIONS</p>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl md:text-3xl font-black text-white">AWS Certified</h3>
+                        <p class="text-mono text-xs mt-1" style="color: var(--accent);">Cloud Practitioner</p>
+                        <p class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">Amazon Web Services • 2024</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl md:text-3xl font-black text-white">Switching &</h3>
+                        <h3 class="text-2xl md:text-3xl font-black text-white">Routing</h3>
+                        <p class="text-mono text-xs mt-1" style="color: var(--accent);">Cisco NetAcad Merit</p>
+                        <p class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">Networking Essentials</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="p-8 md:p-12 group hover:bg-white/[0.02] transition-colors duration-300">
+                <p class="text-mono text-xs mb-6" style="color: var(--accent);">// EDUCATION</p>
+                <div>
+                    <h3 class="text-xl md:text-2xl font-black text-white mb-2">BSc Computer Science</h3>
+                    <p class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">CYBERSECURITY SPECIALIZATION</p>
+                    <p class="text-mono text-xs mt-4" style="color: rgba(255,255,255,0.4);">Asia Pacific University (APU)</p>
+                    <p class="text-mono text-xs" style="color: rgba(255,255,255,0.3);">SEPT 2022 — JUL 2025</p>
+                    <div class="flex items-baseline gap-3 mt-6">
+                        <span class="text-4xl md:text-5xl font-black" style="color: var(--accent);">3.81</span>
+                        <span class="text-mono text-xs" style="color: rgba(255,255,255,0.4);">CGPA</span>
+                    </div>
+                    <p class="text-mono text-xs mt-2" style="color: rgba(255,255,255,0.2);">FIRST CLASS DISTINCTION</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cursor-Following Image Reveal -->
+    <div id="cursor-image" class="fixed w-64 h-40 pointer-events-none z-50 opacity-0 transition-opacity duration-200 rounded-lg overflow-hidden" style="background: var(--bg); border: 1px solid rgba(0, 240, 255, 0.2);">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='160' viewBox='0 0 256 160'%3E%3Crect fill='%23080808' width='256' height='160'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='12' fill='%2300f0ff'%3E[ PROJECT PREVIEW ]%3C/text%3E%3C/svg%3E" alt="" class="w-full h-full object-cover" id="cursor-img-src">
+    </div>
+
+    <script>
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, .link-hover').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Hide loader
+        setTimeout(() => {
+            document.getElementById('loader').classList.add('hidden');
+        }, 1800);
+
+        // Parallax effect on name
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+            document.querySelectorAll('.text-brutal').forEach(el => {
+                el.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+            });
+        });
+
+        // Cursor-following image reveal
+        const cursorImage = document.getElementById('cursor-image');
+        const cursorImgSrc = document.getElementById('cursor-img-src');
+        const projectItems = document.querySelectorAll('.project-item');
+
+        const projectImages = {
+            'mylayak': 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'256\' height=\'160\' viewBox=\'0 0 256 160\'%3E%3Crect fill=\'%23080808\' width=\'256\' height=\'160\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'14\' fill=\'%2300f0ff\'%3E[ MYLAYAK ]%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'10\' fill=\'%23888\'>Zero-Trust Platform%3C/text%3E%3C/svg%3E',
+            'ekyc': 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'256\' height=\'160\' viewBox=\'0 0 256 160\'%3E%3Crect fill=\'%23080808\' width=\'256\' height=\'160\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'14\' fill=\'%2300f0ff\'%3E[ eKYC ]%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'10\' fill=\'%23888\'>Biometric Authentication%3C/text%3E%3C/svg%3E',
+            'luna': 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'256\' height=\'160\' viewBox=\'0 0 256 160\'%3E%3Crect fill=\'%23080808\' width=\'256\' height=\'160\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'14\' fill=\'%2300f0ff\'%3E[ LUNA ]%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'10\' fill=\'%23888\'>Women\'s Safety App%3C/text%3E%3C/svg%3E',
+            'wira': 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'256\' height=\'160\' viewBox=\'0 0 256 160\'%3E%3Crect fill=\'%23080808\' width=\'256\' height=\'160\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'14\' fill=\'%2300f0ff\'%3E[ Wira ]%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'10\' fill=\'%23888\'>Disaster Resilience%3C/text%3E%3C/svg%3E',
+            'quiep': 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'256\' height=\'160\' viewBox=\'0 0 256 160\'%3E%3Crect fill=\'%23080808\' width=\'256\' height=\'160\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'14\' fill=\'%2300f0ff\'%3E[ QuIEP ]%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'10\' fill=\'%23888\'>Community Energy%3C/text%3E%3C/svg%3E',
+            'jetcycle': 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'256\' height=\'160\' viewBox=\'0 0 256 160\'%3E%3Crect fill=\'%23080808\' width=\'256\' height=\'160\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'14\' fill=\'%2300f0ff\'%3E[ JetCycle ]%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'10\' fill=\'%23888\'>AI Tech Swap Station%3C/text%3E%3C/svg%3E',
+            'trendify': 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'256\' height=\'160\' viewBox=\'0 0 256 160\'%3E%3Crect fill=\'%23080808\' width=\'256\' height=\'160\'/%3E%3Ctext x=\'50%25\' y=\'45%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'14\' fill=\'%2300f0ff\'%3E[ Trendify ]%3C/text%3E%3Ctext x=\'50%25\' y=\'60%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'monospace\' font-size=\'10\' fill=\'%23888\'>Supply Chain Intelligence%3C/text%3E%3C/svg%3E'
+        };
+
+        projectItems.forEach(item => {
+            item.addEventListener('mousemove', (e) => {
+                const project = item.getAttribute('data-project');
+                if (projectImages[project]) {
+                    cursorImgSrc.src = projectImages[project];
+                }
+                cursorImage.style.opacity = '1';
+
+                const x = e.clientX + 20;
+                const y = e.clientY - 80;
+                cursorImage.style.left = x + 'px';
+                cursorImage.style.top = y + 'px';
+            });
+
+            item.addEventListener('mouseleave', () => {
+                cursorImage.style.opacity = '0';
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
