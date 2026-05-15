@@ -780,6 +780,86 @@
             color: var(--gray-400);
         }
 
+        /* ===== CVE GRID ===== */
+        .cve-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .cve-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px;
+            border-bottom: 1px solid var(--gray-200);
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .cve-card:hover {
+            background: var(--gray-50);
+            transform: translateX(8px);
+            border-color: transparent;
+        }
+
+        .cve-severity {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 100px;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .cve-severity.high {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: var(--white);
+        }
+
+        .cve-severity.moderate {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: var(--white);
+        }
+
+        .cve-severity.critical {
+            background: linear-gradient(135deg, #7c2d12, #dc2626);
+            color: var(--white);
+        }
+
+        .cve-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 4px;
+            letter-spacing: -0.3px;
+        }
+
+        .cve-info .cve-project {
+            font-size: 14px;
+            color: var(--orange);
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .cve-info .cve-id {
+            font-size: 13px;
+            color: var(--gray-400);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        @media (max-width: 640px) {
+            .cve-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
         /* ===== PROJECTS ===== */
         .projects-grid {
             display: grid;
@@ -1348,6 +1428,7 @@
             <a href="#" class="nav-logo">YT.</a>
             <ul class="nav-links">
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#cves">CVEs</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#awards">Awards</a></li>
                 <li><a href="mailto:chyeyantong03@gmail.com" class="nav-cta">Let's Talk</a></li>
@@ -1403,8 +1484,8 @@
                 <div class="proof-label">CGPA · First Class</div>
             </div>
             <div class="proof-item" data-animate>
-                <div class="proof-number" data-count="3">0</div>
-                <div class="proof-label">Security Certs</div>
+                <div class="proof-number" data-count="6">0</div>
+                <div class="proof-label">CVEs Published</div>
             </div>
         </div>
     </div>
@@ -1532,6 +1613,65 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- SECURITY RESEARCH / CVEs -->
+    <section class="section" id="cves">
+        <div class="section-header" data-animate>
+            <div class="section-label">Security Research</div>
+            <h2 class="section-title">Published Vulnerabilities</h2>
+        </div>
+
+        <div class="cve-grid">
+            <a href="https://github.com/heyform/heyform/security/advisories/GHSA-m94h-jxvc-hhch" target="_blank" class="cve-card" data-animate>
+                <div class="cve-severity high">HIGH</div>
+                <div class="cve-info">
+                    <h4>Stored XSS via Unauthenticated SVG File Upload</h4>
+                    <p class="cve-project">heyform/heyform</p>
+                    <p class="cve-id">CVE-2026-45797 · CWE-79 / CWE-434</p>
+                </div>
+            </a>
+            <a href="https://github.com/heyform/heyform/security/advisories/GHSA-3j2g-3q97-fvv5" target="_blank" class="cve-card" data-animate>
+                <div class="cve-severity high">HIGH</div>
+                <div class="cve-info">
+                    <h4>SSRF via Unauthenticated Image Proxy</h4>
+                    <p class="cve-project">heyform/heyform</p>
+                    <p class="cve-id">GHSA-3j2g-3q97-fvv5 · CWE-918</p>
+                </div>
+            </a>
+            <a href="https://github.com/oscal-compass/compliance-trestle/security/advisories/GHSA-w76h-q7c6-jpjp" target="_blank" class="cve-card" data-animate>
+                <div class="cve-severity moderate">MODERATE</div>
+                <div class="cve-info">
+                    <h4>Critical SSRF in Remote Fetching Subsystem</h4>
+                    <p class="cve-project">oscal-compass/compliance-trestle</p>
+                    <p class="cve-id">GHSA-w76h-q7c6-jpjp · CWE-918</p>
+                </div>
+            </a>
+            <a href="https://github.com/oscal-compass/compliance-trestle/security/advisories/GHSA-mj4x-vf5c-5xg8" target="_blank" class="cve-card" data-animate>
+                <div class="cve-severity high">HIGH</div>
+                <div class="cve-info">
+                    <h4>Arbitrary File Write via Cache Path Traversal</h4>
+                    <p class="cve-project">oscal-compass/compliance-trestle</p>
+                    <p class="cve-id">GHSA-mj4x-vf5c-5xg8 · CWE-22</p>
+                </div>
+            </a>
+            <a href="https://github.com/oscal-compass/compliance-trestle/security/advisories/GHSA-g3vg-vx23-3858" target="_blank" class="cve-card" data-animate>
+                <div class="cve-severity high">HIGH</div>
+                <div class="cve-info">
+                    <h4>Arbitrary File Write via Cache Path Traversal</h4>
+                    <p class="cve-project">oscal-compass/compliance-trestle</p>
+                    <p class="cve-id">GHSA-g3vg-vx23-3858 · CWE-22</p>
+                </div>
+            </a>
+            <a href="https://github.com/open-webui/open-webui/security/advisories/GHSA-rjmp-vjf2-qf4g" target="_blank" class="cve-card" data-animate>
+                <div class="cve-severity moderate">MODERATE</div>
+                <div class="cve-info">
+                    <h4>Mass Assignment — User ID Spoofing & Evaluation Manipulation</h4>
+                    <p class="cve-project">open-webui/open-webui</p>
+                    <p class="cve-id">CVE-2026-45396 · CWE-915</p>
+                </div>
+            </a>
         </div>
     </section>
 
