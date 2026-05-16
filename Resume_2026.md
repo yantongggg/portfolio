@@ -48,7 +48,8 @@
 | 🏆 **Champion — Security Track** | NexG Godamlah! 2.0 Smart ID Hackathon — MyLayak Zero-Trust Platform | 2025 |
 | 🥇 **Gold Award** | MIJC2026 Virtual Innovation — eKYC Biometric Authentication Research | 2026 |
 | 🏅 **Top 15 / 100+ Teams** | EY Young Technology Professional Challenge (YTPC) 2025 — Trendify | 2025 |
-| 🏅 **Blueprint Hackathon Finalist** | LUNA Women's Safety App & Wira Disaster Resilience Platform | 2026 |
+| 🏅 **Blueprint Hackathon Finalist** | LUNA Women's Safety App | 2026 |
+| 🏅 **Borneo Hackathon** | Wira Disaster Resilience Platform | 2026 |
 
 ---
 
@@ -88,7 +89,7 @@
 - Integrated Google Gemini AI (evidence analysis, deepfake detection), Azure Neural TTS, and real-time boundary-setting coaching
 - **Tech:** React, TypeScript, Supabase, Firebase, Google Gemini Vision, Azure Cognitive Services
 
-### Wira — AI Disaster Resilience Platform | Blueprint Hackathon Finalist
+### Wira — AI Disaster Resilience Platform | Borneo Hackathon
 
 - Developed a gamified disaster preparedness platform for ASEAN covering 10 countries with real disaster data
 - Built **Possum Protocol** — offline emergency toolkit with mesh networking, GPS sharing, and distress signal detection
