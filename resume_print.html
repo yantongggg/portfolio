@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
 
         @page {
             size: A4;
-            margin: 14mm 16mm 14mm 16mm;
+            margin: 12mm 14mm 12mm 14mm;
         }
 
         * {
@@ -16,67 +16,85 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --orange: #ff4d00;
+            --orange-light: rgba(255, 77, 0, 0.08);
+            --black: #0a0a0a;
+            --gray-700: #374151;
+            --gray-500: #6b7280;
+            --gray-400: #9ca3af;
+            --gray-200: #e5e7eb;
+            --gray-100: #f3f4f6;
+            --gray-50: #f9fafb;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: #1a1a1a;
-            font-size: 9pt;
+            color: var(--black);
+            font-size: 8.5pt;
             line-height: 1.45;
             -webkit-font-smoothing: antialiased;
         }
 
         /* ── HEADER ── */
         .header {
-            text-align: center;
             padding-bottom: 10pt;
-            border-bottom: 2.5pt solid #1a1a1a;
             margin-bottom: 10pt;
+            border-bottom: 2.5pt solid var(--orange);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
 
-        .header h1 {
-            font-size: 22pt;
-            font-weight: 800;
-            letter-spacing: 3pt;
-            text-transform: uppercase;
-            color: #1a1a1a;
-            margin-bottom: 5pt;
-        }
-
-        .header .contact {
-            font-size: 8.5pt;
-            color: #444;
+        .header-left h1 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 28pt;
             font-weight: 400;
+            color: var(--black);
+            letter-spacing: -1pt;
+            line-height: 1;
+            margin-bottom: 3pt;
+        }
+
+        .header-left .tagline {
+            font-size: 9.5pt;
+            font-weight: 600;
+            color: var(--orange);
             letter-spacing: 0.3pt;
         }
 
-        .header .contact a {
-            color: #444;
-            text-decoration: none;
+        .header-right {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--gray-500);
+            line-height: 1.7;
         }
 
-        .header .contact .sep {
-            color: #bbb;
-            margin: 0 6pt;
+        .header-right a {
+            color: var(--gray-700);
+            text-decoration: none;
+            font-weight: 500;
         }
 
         /* ── SECTIONS ── */
         .section {
-            margin-bottom: 9pt;
+            margin-bottom: 8pt;
         }
 
         .section-title {
-            font-size: 9.5pt;
+            font-size: 8pt;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2pt;
-            color: #1a1a1a;
-            border-bottom: 1.2pt solid #1a1a1a;
+            letter-spacing: 2.5pt;
+            color: var(--orange);
             padding-bottom: 3pt;
-            margin-bottom: 7pt;
+            margin-bottom: 6pt;
+            border-bottom: 1pt solid var(--gray-200);
         }
 
         /* ── EXPERIENCE ENTRIES ── */
         .entry {
-            margin-bottom: 7pt;
+            margin-bottom: 6pt;
         }
 
         .entry-header {
@@ -87,47 +105,49 @@
         }
 
         .entry-title {
-            font-size: 9.5pt;
+            font-size: 9pt;
             font-weight: 700;
-            color: #1a1a1a;
+            color: var(--black);
         }
 
         .entry-date {
-            font-size: 8pt;
-            color: #666;
+            font-size: 7.5pt;
+            color: var(--gray-400);
             font-weight: 500;
             white-space: nowrap;
+            background: var(--gray-50);
+            padding: 1pt 6pt;
+            border-radius: 3pt;
         }
 
         .entry-subtitle {
-            font-size: 8.5pt;
-            color: #555;
-            font-style: italic;
-            margin-bottom: 3pt;
+            font-size: 8pt;
+            color: var(--orange);
+            font-weight: 500;
+            font-style: normal;
+            margin-bottom: 2pt;
         }
 
         .entry ul {
-            padding-left: 14pt;
+            padding-left: 12pt;
             margin: 0;
         }
 
         .entry ul li {
-            margin-bottom: 1.5pt;
-            font-size: 8.5pt;
-            color: #333;
+            margin-bottom: 1pt;
+            font-size: 8pt;
+            color: var(--gray-700);
             line-height: 1.4;
         }
 
-        /* ── EDUCATION ── */
-        .edu-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
+        .entry ul li::marker {
+            color: var(--orange);
         }
 
+        /* ── EDUCATION ── */
         .edu-details {
-            font-size: 8.5pt;
-            color: #555;
+            font-size: 8pt;
+            color: var(--gray-500);
             margin-top: 1pt;
         }
 
@@ -135,25 +155,24 @@
         .awards-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 8.5pt;
+            font-size: 8pt;
         }
 
         .awards-table th {
             text-align: left;
             font-weight: 700;
-            font-size: 8pt;
+            font-size: 7pt;
             text-transform: uppercase;
-            letter-spacing: 0.8pt;
-            color: #1a1a1a;
-            padding: 4pt 6pt;
-            border-bottom: 1.2pt solid #1a1a1a;
-            background: none;
+            letter-spacing: 1pt;
+            color: var(--gray-400);
+            padding: 3pt 5pt;
+            border-bottom: 1pt solid var(--gray-200);
         }
 
         .awards-table td {
-            padding: 3.5pt 6pt;
-            border-bottom: 0.5pt solid #ddd;
-            color: #333;
+            padding: 3pt 5pt;
+            border-bottom: 0.5pt solid var(--gray-100);
+            color: var(--gray-700);
             vertical-align: top;
         }
 
@@ -163,33 +182,65 @@
 
         .award-badge {
             font-weight: 700;
-            color: #1a1a1a;
+            color: var(--black);
         }
 
-        /* ── SKILLS TABLE ── */
+        /* ── CVE SEVERITY BADGES ── */
+        .severity-high {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 7pt;
+            color: #dc2626;
+            background: #fef2f2;
+            padding: 1pt 5pt;
+            border-radius: 3pt;
+            letter-spacing: 0.3pt;
+        }
+
+        .severity-moderate {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 7pt;
+            color: #d97706;
+            background: #fffbeb;
+            padding: 1pt 5pt;
+            border-radius: 3pt;
+            letter-spacing: 0.3pt;
+        }
+
+        .cve-id {
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 7pt;
+            color: var(--gray-400);
+        }
+
+        /* ── SKILLS ── */
         .skills-grid {
             display: grid;
-            grid-template-columns: 90pt 1fr;
+            grid-template-columns: 80pt 1fr;
             gap: 0;
-            font-size: 8.5pt;
+            font-size: 8pt;
         }
 
         .skills-grid .skill-cat {
             font-weight: 700;
-            color: #1a1a1a;
-            padding: 3pt 6pt;
-            border-bottom: 0.5pt solid #eee;
+            color: var(--orange);
+            padding: 2.5pt 5pt;
+            border-bottom: 0.5pt solid var(--gray-100);
+            font-size: 7.5pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5pt;
         }
 
         .skills-grid .skill-items {
-            color: #333;
-            padding: 3pt 6pt;
-            border-bottom: 0.5pt solid #eee;
+            color: var(--gray-700);
+            padding: 2.5pt 5pt;
+            border-bottom: 0.5pt solid var(--gray-100);
         }
 
         /* ── PROJECTS ── */
         .project {
-            margin-bottom: 6pt;
+            margin-bottom: 5pt;
         }
 
         .project-header {
@@ -200,58 +251,80 @@
         }
 
         .project-title {
-            font-size: 9pt;
+            font-size: 8.5pt;
             font-weight: 700;
-            color: #1a1a1a;
+            color: var(--black);
         }
 
         .project-award {
-            font-size: 7.5pt;
+            font-size: 7pt;
             font-weight: 600;
-            color: #555;
+            color: #ffffff;
+            background: var(--orange);
+            padding: 1pt 6pt;
+            border-radius: 3pt;
             white-space: nowrap;
         }
 
         .project-tech {
-            font-size: 7.5pt;
-            color: #777;
-            margin-bottom: 2pt;
+            font-size: 7pt;
+            color: var(--gray-400);
+            margin-bottom: 1pt;
+            letter-spacing: 0.2pt;
         }
 
         .project ul {
-            padding-left: 14pt;
+            padding-left: 12pt;
             margin: 0;
         }
 
         .project ul li {
             margin-bottom: 1pt;
-            font-size: 8.5pt;
-            color: #333;
+            font-size: 8pt;
+            color: var(--gray-700);
             line-height: 1.4;
+        }
+
+        .project ul li::marker {
+            color: var(--orange);
         }
 
         /* ── EXTRAS ── */
         .extras-list {
-            padding-left: 14pt;
+            padding-left: 12pt;
         }
 
         .extras-list li {
             margin-bottom: 1.5pt;
-            font-size: 8.5pt;
-            color: #333;
+            font-size: 8pt;
+            color: var(--gray-700);
+        }
+
+        .extras-list li::marker {
+            color: var(--orange);
         }
 
         .cert-item {
             margin-bottom: 2pt;
-            font-size: 8.5pt;
-            color: #333;
+            font-size: 8pt;
+            color: var(--gray-700);
         }
 
-        /* ── TWO COLUMN BOTTOM ── */
+        /* ── TWO COLUMN ── */
         .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16pt;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            margin-top: 6pt;
+            padding-top: 5pt;
+            border-top: 1pt solid var(--gray-200);
+            text-align: center;
+            font-size: 7pt;
+            color: var(--gray-400);
         }
     </style>
 </head>
@@ -259,14 +332,14 @@
 
     <!-- HEADER -->
     <div class="header">
-        <h1>Chye Yan Tong</h1>
-        <div class="contact">
-            Kuala Lumpur, Malaysia
-            <span class="sep">|</span>
-            <a href="mailto:chyeyantong03@gmail.com">chyeyantong03@gmail.com</a>
-            <span class="sep">|</span>
-            <a href="https://linkedin.com/in/yantongchye">linkedin.com/in/yantongchye</a>
-            <span class="sep">|</span>
+        <div class="header-left">
+            <h1>Chye Yan Tong</h1>
+            <div class="tagline">AI Security Engineer</div>
+        </div>
+        <div class="header-right">
+            Kuala Lumpur, Malaysia<br>
+            <a href="mailto:chyeyantong03@gmail.com">chyeyantong03@gmail.com</a><br>
+            <a href="https://linkedin.com/in/yantongchye">linkedin.com/in/yantongchye</a><br>
             <a href="https://github.com/yantongggg">github.com/yantongggg</a>
         </div>
     </div>
@@ -382,40 +455,40 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><span class="award-badge">High</span></td>
+                    <td><span class="severity-high">HIGH</span></td>
                     <td>Stored XSS via Unauthenticated SVG File Upload</td>
                     <td>heyform/heyform</td>
-                    <td>CVE-2026-45797</td>
+                    <td><span class="cve-id">CVE-2026-45797</span></td>
                 </tr>
                 <tr>
-                    <td><span class="award-badge">High</span></td>
+                    <td><span class="severity-high">HIGH</span></td>
                     <td>SSRF via Unauthenticated Image Proxy</td>
                     <td>heyform/heyform</td>
-                    <td>GHSA-3j2g-3q97-fvv5</td>
+                    <td><span class="cve-id">GHSA-3j2g-3q97-fvv5</span></td>
                 </tr>
                 <tr>
-                    <td><span class="award-badge">High</span></td>
+                    <td><span class="severity-high">HIGH</span></td>
                     <td>Arbitrary File Write via Cache Path Traversal</td>
                     <td>oscal-compass/compliance-trestle</td>
-                    <td>GHSA-mj4x-vf5c-5xg8</td>
+                    <td><span class="cve-id">GHSA-mj4x-vf5c-5xg8</span></td>
                 </tr>
                 <tr>
-                    <td><span class="award-badge">High</span></td>
+                    <td><span class="severity-high">HIGH</span></td>
                     <td>Arbitrary File Write via Cache Path Traversal</td>
                     <td>oscal-compass/compliance-trestle</td>
-                    <td>GHSA-g3vg-vx23-3858</td>
+                    <td><span class="cve-id">GHSA-g3vg-vx23-3858</span></td>
                 </tr>
                 <tr>
-                    <td>Moderate</td>
+                    <td><span class="severity-moderate">MODERATE</span></td>
                     <td>Critical SSRF in Remote Fetching Subsystem</td>
                     <td>oscal-compass/compliance-trestle</td>
-                    <td>GHSA-w76h-q7c6-jpjp</td>
+                    <td><span class="cve-id">GHSA-w76h-q7c6-jpjp</span></td>
                 </tr>
                 <tr>
-                    <td>Moderate</td>
+                    <td><span class="severity-moderate">MODERATE</span></td>
                     <td>Mass Assignment &mdash; User ID Spoofing</td>
                     <td>open-webui/open-webui</td>
-                    <td>CVE-2026-45396</td>
+                    <td><span class="cve-id">CVE-2026-45396</span></td>
                 </tr>
             </tbody>
         </table>
@@ -556,6 +629,8 @@
             <div class="skill-items">Technical Reporting, Team Leadership, Problem Solving, Critical Thinking</div>
         </div>
     </div>
+
+    <div class="footer">Chye Yan Tong &middot; chyeyantong03@gmail.com &middot; yantongggg.github.io/portfolio</div>
 
 </body>
 </html>
