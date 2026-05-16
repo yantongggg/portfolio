@@ -21,6 +21,7 @@
 - Develop and implement AI-driven security solutions within the AI Security Engineering team
 - Conduct offensive security assessments across web applications, APIs, and mobile platforms
 - Active bug bounty researcher with confirmed vulnerabilities reported on Bugcrowd and GitHub open-source repositories
+- Discovered and responsibly disclosed 6 CVEs across open-source projects (HeyForm, Open WebUI, compliance-trestle)
 
 **Cybersecurity Intern** | Maybank HQ – Menara Maybank
 *Aug 2024 – Nov 2024*
@@ -48,6 +49,19 @@
 | 🥇 **Gold Award** | MIJC2026 Virtual Innovation — eKYC Biometric Authentication Research | 2026 |
 | 🏅 **Top 15 / 100+ Teams** | EY Young Technology Professional Challenge (YTPC) 2025 — Trendify | 2025 |
 | 🏅 **Blueprint Hackathon Finalist** | LUNA Women's Safety App & Wira Disaster Resilience Platform | 2026 |
+
+---
+
+## SECURITY RESEARCH (CVEs)
+
+| Severity | Vulnerability | Project | ID |
+|----------|--------------|---------|----|
+| **High** | Stored XSS via Unauthenticated SVG File Upload | heyform/heyform | CVE-2026-45797 |
+| **High** | SSRF via Unauthenticated Image Proxy | heyform/heyform | GHSA-3j2g-3q97-fvv5 |
+| **High** | Arbitrary File Write via Cache Path Traversal | oscal-compass/compliance-trestle | GHSA-mj4x-vf5c-5xg8 |
+| **High** | Arbitrary File Write via Cache Path Traversal | oscal-compass/compliance-trestle | GHSA-g3vg-vx23-3858 |
+| **Moderate** | Critical SSRF in Remote Fetching Subsystem | oscal-compass/compliance-trestle | GHSA-w76h-q7c6-jpjp |
+| **Moderate** | Mass Assignment — User ID Spoofing | open-webui/open-webui | CVE-2026-45396 |
 
 ---
 
@@ -107,6 +121,12 @@
 
 - Architected a scalable, data-driven supply chain intelligence platform powered by SAP technologies
 - Designed predictive market modeling to help Malaysian businesses anticipate and respond to market shifts
+
+### SipMate — AI Wine Discovery App | World's Largest Hackathon (Bolt)
+
+- Built a wine discovery app with 3,000+ wines and AI-generated descriptions using DeepSeek API
+- Developed personalized recommendation engine; planning RAG integration for improved accuracy
+- **Tech:** React Native, Expo, Supabase, DeepSeek API
 
 ---
 
