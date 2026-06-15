@@ -1,6 +1,6 @@
 # CHYE YAN TONG
 
-📍 Kuala Lumpur, Malaysia | ✉ chyeyantong03@gmail.com | 🔗 [LinkedIn](https://www.linkedin.com/in/yantongchye) | 🔗 [GitHub](https://github.com/yantongggg)
+📍 Kuala Lumpur, Malaysia | ✉ chyeyantong03@gmail.com | 🔗 [LinkedIn](https://www.linkedin.com/in/yantongchye) | 🔗 [GitHub](https://github.com/yantongggg/portfolio)
 
 ---
 
@@ -21,7 +21,7 @@
 - Develop and implement AI-driven security solutions within the AI Security Engineering team
 - Conduct offensive security assessments across web applications, APIs, and mobile platforms
 - Active bug bounty researcher with confirmed vulnerabilities reported on Bugcrowd and GitHub open-source repositories
-- Discovered and responsibly disclosed 6 CVEs across open-source projects (HeyForm, Open WebUI, compliance-trestle)
+- Discovered and responsibly disclosed 6 CVEs across open-source projects, including CVE-2026-46380 in compliance-trestle, plus credited co-reporter on a Hoppscotch backend advisory
 
 **Cybersecurity Intern** | Maybank HQ – Menara Maybank
 *Aug 2024 – Nov 2024*
@@ -44,6 +44,7 @@
 
 | Award | Event | Year |
 |-------|-------|------|
+| 🌍 **Top 5 Worldwide** | SuperAI NEXT Hackathon — BunkerGuard AI Agentic Maritime Intelligence | 2026 |
 | 🏆 **Champion + Best Slide/Demo** | Sparkathon 2025 (APU x BAT) — JetCycle AI Tech Swap Station | 2025 |
 | 🏆 **Champion — Security Track** | NexG Godamlah! 2.0 Smart ID Hackathon — MyLayak Zero-Trust Platform | 2025 |
 | 🥇 **Gold Award** | MIJC2026 Virtual Innovation — eKYC Biometric Authentication Research | 2026 |
@@ -61,12 +62,22 @@
 | **High** | SSRF via Unauthenticated Image Proxy | heyform/heyform | GHSA-3j2g-3q97-fvv5 |
 | **High** | Arbitrary File Write via Cache Path Traversal | oscal-compass/compliance-trestle | GHSA-mj4x-vf5c-5xg8 |
 | **High** | Arbitrary File Write via Cache Path Traversal | oscal-compass/compliance-trestle | GHSA-g3vg-vx23-3858 |
-| **Moderate** | Critical SSRF in Remote Fetching Subsystem | oscal-compass/compliance-trestle | GHSA-w76h-q7c6-jpjp |
+| **Moderate** | SSRF in Remote Fetching Subsystem | oscal-compass/compliance-trestle | CVE-2026-46380 |
 | **Moderate** | Mass Assignment — User ID Spoofing | open-webui/open-webui | CVE-2026-45396 |
+| **High** | Cross-User Credential Theft via GraphQL Field Resolvers (credited co-reporter; expanded fix scope) | hoppscotch/hoppscotch | GHSA-8f4j-54f5-62hh |
 
 ---
 
 ## KEY PROJECTS
+
+### BunkerGuard AI — Agentic Maritime Fuel Verification | 🌍 Top 5 Worldwide, SuperAI NEXT Hackathon
+
+- Built in 36 hours for a global hackathon selecting 200 AI builders; earned a Top 5 finish and presented the product on the main SuperAI stage
+- Engineered a five-stage, human-in-the-loop workflow that validates Bunker Delivery Notes before sign-off using four autonomous agents and Chief Engineer approval
+- Combined OCR, Exa intelligence enrichment, 26 deterministic maritime anomaly rules, risk scoring, and SHA-256 evidence reports to surface fraud in approximately 90 seconds
+- Deployed a production React dashboard on Vercel with a Python serverless backend on AWS Lambda/API Gateway, Bedrock, S3, and Supabase
+- **Tech:** React, TypeScript, Python, AWS Lambda, API Gateway, Bedrock, S3, Supabase, Exa, Vercel AI SDK, Three.js
+- **Live:** https://bunkerguard-ai.vercel.app | **Repo:** https://github.com/Scarce01/bunkerguard-ai
 
 ### MyLayak — Zero-Trust Eligibility Platform | 🏆 Champion, Godamlah! 2.0
 

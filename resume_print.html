@@ -342,7 +342,7 @@
             Kuala Lumpur, Malaysia<br>
             <a href="mailto:chyeyantong03@gmail.com">chyeyantong03@gmail.com</a><br>
             <a href="https://linkedin.com/in/yantongchye">linkedin.com/in/yantongchye</a><br>
-            <a href="https://github.com/yantongggg">github.com/yantongggg</a>
+            <a href="https://github.com/yantongggg/portfolio">github.com/yantongggg/portfolio</a>
         </div>
     </div>
 
@@ -372,7 +372,7 @@
                 <li>Develop and implement AI-driven security solutions within the AI Security Engineering team</li>
                 <li>Conduct offensive security assessments across web applications, APIs, and mobile platforms</li>
                 <li>Active bug bounty researcher with confirmed vulnerabilities reported on Bugcrowd and GitHub open-source repositories</li>
-                <li>Discovered and responsibly disclosed 6 CVEs across open-source projects (HeyForm, Open WebUI, compliance-trestle)</li>
+                <li>Discovered and responsibly disclosed 6 CVEs, including CVE-2026-46380 in compliance-trestle, plus credited co-reporter on a Hoppscotch backend advisory</li>
             </ul>
         </div>
 
@@ -414,6 +414,11 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td><span class="award-badge">Top 5 Worldwide</span></td>
+                    <td>SuperAI NEXT Hackathon — BunkerGuard AI Agentic Maritime Intelligence</td>
+                    <td style="text-align: center;">2026</td>
+                </tr>
                 <tr>
                     <td><span class="award-badge">Champion + Best Demo</span></td>
                     <td>Sparkathon 2025 (APU x BAT) — JetCycle AI Tech Swap Station</td>
@@ -487,15 +492,21 @@
                 </tr>
                 <tr>
                     <td><span class="severity-moderate">MODERATE</span></td>
-                    <td>Critical SSRF in Remote Fetching Subsystem</td>
+                    <td>SSRF in Remote Fetching Subsystem</td>
                     <td>oscal-compass/compliance-trestle</td>
-                    <td><span class="cve-id">GHSA-w76h-q7c6-jpjp</span></td>
+                    <td><span class="cve-id">CVE-2026-46380</span></td>
                 </tr>
                 <tr>
                     <td><span class="severity-moderate">MODERATE</span></td>
                     <td>Mass Assignment &mdash; User ID Spoofing</td>
                     <td>open-webui/open-webui</td>
                     <td><span class="cve-id">CVE-2026-45396</span></td>
+                </tr>
+                <tr>
+                    <td><span class="severity-high">HIGH</span></td>
+                    <td>Cross-User Credential Theft via GraphQL Field Resolvers</td>
+                    <td>hoppscotch/hoppscotch</td>
+                    <td><span class="cve-id">GHSA-8f4j-54f5-62hh</span></td>
                 </tr>
             </tbody>
         </table>
@@ -504,6 +515,20 @@
     <!-- KEY PROJECTS -->
     <div class="section">
         <div class="section-title">Key Projects</div>
+
+        <div class="project">
+            <div class="project-header">
+                <span class="project-title">BunkerGuard AI — Agentic Maritime Fuel Verification</span>
+                <span class="project-award">Top 5 Worldwide, SuperAI NEXT</span>
+            </div>
+            <div class="project-tech">React, TypeScript, Python, AWS Lambda, API Gateway, Bedrock, S3, Supabase, Exa, Vercel AI SDK, Three.js</div>
+            <ul>
+                <li>Built in 36 hours for a global hackathon selecting 200 AI builders; earned a Top 5 finish and presented on the main SuperAI stage</li>
+                <li>Engineered a five-stage human-in-the-loop workflow with four autonomous agents and Chief Engineer approval to verify fuel deliveries before sign-off</li>
+                <li>Combined OCR, Exa enrichment, 26 deterministic anomaly rules, risk scoring, and SHA-256 evidence reports to surface fraud in approximately 90 seconds</li>
+                <li>Deployed the React dashboard on Vercel with an AWS Lambda/API Gateway backend, Bedrock, S3, and Supabase</li>
+            </ul>
+        </div>
 
         <div class="project">
             <div class="project-header">

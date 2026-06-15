@@ -1007,7 +1007,22 @@
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        .video-lightbox iframe {
+            width: min(90vw, 1120px);
+            aspect-ratio: 16 / 9;
+            border: 0;
+            border-radius: 12px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: none;
+        }
+
         .video-lightbox.active video {
+            transform: scale(1);
+        }
+
+        .video-lightbox.active iframe {
             transform: scale(1);
         }
 
@@ -1191,6 +1206,23 @@
             color: var(--white);
             border-color: var(--black);
             transform: translateY(-2px);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .project-links a {
+            color: var(--orange);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .project-links a:hover {
+            text-decoration: underline;
         }
 
         /* ===== SKILLS ===== */
@@ -1464,11 +1496,11 @@
     <div class="proof-bar">
         <div class="proof-inner">
             <div class="proof-item" data-animate>
-                <div class="proof-number" data-count="11">0</div>
+                <div class="proof-number" data-count="12">0</div>
                 <div class="proof-label">Projects Shipped</div>
             </div>
             <div class="proof-item" data-animate>
-                <div class="proof-number" data-count="5">0</div>
+                <div class="proof-number" data-count="6">0</div>
                 <div class="proof-label">Hackathon Awards</div>
             </div>
             <div class="proof-item" data-animate>
@@ -1484,8 +1516,8 @@
                 <div class="proof-label">CGPA · First Class</div>
             </div>
             <div class="proof-item" data-animate>
-                <div class="proof-number" data-count="6">0</div>
-                <div class="proof-label">CVEs Published</div>
+                <div class="proof-number" data-count="7">0</div>
+                <div class="proof-label">Security Advisories</div>
             </div>
         </div>
     </div>
@@ -1578,6 +1610,13 @@
 
             <div class="awards-grid">
                 <div class="award-item" data-animate>
+                    <span class="award-badge finalist">TOP 5 WORLDWIDE</span>
+                    <div class="award-info">
+                        <h4>SuperAI NEXT Hackathon — BunkerGuard AI</h4>
+                        <p>Selected from 200 global AI builders · Main-stage keynote · USD $25,000 AWS credits · 2026</p>
+                    </div>
+                </div>
+                <div class="award-item" data-animate>
                     <span class="award-badge">CHAMPION</span>
                     <div class="award-info">
                         <h4>Sparkathon 2025 (APU × BAT) — JetCycle AI Tech Swap Station</h4>
@@ -1640,12 +1679,12 @@
                     <p class="cve-id">GHSA-3j2g-3q97-fvv5 · CWE-918</p>
                 </div>
             </a>
-            <a href="https://github.com/oscal-compass/compliance-trestle/security/advisories/GHSA-w76h-q7c6-jpjp" target="_blank" class="cve-card" data-animate>
+            <a href="https://github.com/advisories/GHSA-w76h-q7c6-jpjp" target="_blank" rel="noopener noreferrer" class="cve-card" data-animate>
                 <div class="cve-severity moderate">MODERATE</div>
                 <div class="cve-info">
-                    <h4>Critical SSRF in Remote Fetching Subsystem</h4>
+                    <h4>SSRF in Remote Fetching Subsystem</h4>
                     <p class="cve-project">oscal-compass/compliance-trestle</p>
-                    <p class="cve-id">GHSA-w76h-q7c6-jpjp · CWE-918</p>
+                    <p class="cve-id">CVE-2026-46380 · GHSA-w76h-q7c6-jpjp · CWE-918</p>
                 </div>
             </a>
             <a href="https://github.com/oscal-compass/compliance-trestle/security/advisories/GHSA-mj4x-vf5c-5xg8" target="_blank" class="cve-card" data-animate>
@@ -1672,6 +1711,14 @@
                     <p class="cve-id">CVE-2026-45396 · CWE-915</p>
                 </div>
             </a>
+            <a href="https://github.com/hoppscotch/hoppscotch/security/advisories/GHSA-8f4j-54f5-62hh" target="_blank" class="cve-card" data-animate>
+                <div class="cve-severity high">HIGH</div>
+                <div class="cve-info">
+                    <h4>Cross-User Credential Theft via GraphQL Field Resolvers <small>(credited co-reporter)</small></h4>
+                    <p class="cve-project">hoppscotch/hoppscotch</p>
+                    <p class="cve-id">GHSA-8f4j-54f5-62hh · CWE-200 / CWE-639</p>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -1683,6 +1730,30 @@
         </div>
 
         <div class="projects-grid">
+            <div class="project-card" data-animate="scale" data-youtube="huvNYPd1sBE">
+                <div class="project-img">
+                    <img src="bunkerguard-dashboard.png" alt="BunkerGuard AI maritime fraud detection dashboard">
+                    <div class="play-overlay"><span>&#9654;</span></div>
+                </div>
+                <div class="project-body">
+                    <span class="project-tag">SuperAI NEXT · Top 5 Worldwide</span>
+                    <h3>BunkerGuard AI — Maritime Fuel Verification</h3>
+                    <p>Five-stage, human-in-the-loop system that verifies bunker fuel deliveries before sign-off. Combines OCR, live intelligence, 26 deterministic anomaly rules, risk scoring, and audit-ready evidence to surface fraud in approximately 90 seconds.</p>
+                    <div class="project-tech">
+                        <span>Agentic AI</span>
+                        <span>React</span>
+                        <span>Python</span>
+                        <span>AWS Bedrock</span>
+                        <span>Exa</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.youtube.com/watch?v=huvNYPd1sBE" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Watch Video ↗</a>
+                        <a href="https://bunkerguard-ai.vercel.app" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Live App ↗</a>
+                        <a href="https://github.com/Scarce01/bunkerguard-ai" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">GitHub ↗</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="project-card" data-animate="scale" data-video="mylayak.mp4">
                 <div class="project-img">
                     <video src="mylayak.mp4" muted loop playsinline preload="metadata"></video>
@@ -1910,7 +1981,7 @@
     <footer>
         <ul class="footer-links">
             <li><a href="https://www.linkedin.com/in/yantongchye" target="_blank">LinkedIn</a></li>
-            <li><a href="https://github.com/yantongggg" target="_blank">GitHub</a></li>
+            <li><a href="https://github.com/yantongggg/portfolio" target="_blank" rel="noopener noreferrer">GitHub</a></li>
             <li><a href="mailto:chyeyantong03@gmail.com">Email</a></li>
             <li><a href="Chye_Yan_Tong_Resume_2026.pdf">Resume</a></li>
         </ul>
@@ -2057,12 +2128,21 @@
         lightbox.innerHTML = `
             <span class="video-lightbox-close">&times;</span>
             <video controls playsinline></video>
+            <iframe
+                title="Project video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+            ></iframe>
         `;
         document.body.appendChild(lightbox);
 
         const lbVideo = lightbox.querySelector('video');
+        const lbYouTube = lightbox.querySelector('iframe');
 
         function openVideoLightbox(src) {
+            lbYouTube.style.display = 'none';
+            lbYouTube.src = '';
+            lbVideo.style.display = 'block';
             lbVideo.src = src;
             lightbox.classList.add('active');
             lbVideo.currentTime = 0;
@@ -2070,10 +2150,21 @@
             document.body.style.overflow = 'hidden';
         }
 
+        function openYouTubeLightbox(videoId) {
+            lbVideo.pause();
+            lbVideo.src = '';
+            lbVideo.style.display = 'none';
+            lbYouTube.style.display = 'block';
+            lbYouTube.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
         function closeVideoLightbox() {
             lightbox.classList.remove('active');
             lbVideo.pause();
             lbVideo.src = '';
+            lbYouTube.src = '';
             document.body.style.overflow = '';
         }
 
@@ -2133,8 +2224,11 @@
         document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('click', () => {
                 const videoSrc = card.dataset.video;
+                const youtubeId = card.dataset.youtube;
                 const imagesSrc = card.dataset.images;
-                if (videoSrc) {
+                if (youtubeId) {
+                    openYouTubeLightbox(youtubeId);
+                } else if (videoSrc) {
                     openVideoLightbox(videoSrc);
                 } else if (imagesSrc) {
                     openImageLightbox(imagesSrc.split(','));
