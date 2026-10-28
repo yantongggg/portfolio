@@ -1,61 +1,29 @@
-# Chye Yan Tong — Portfolio
+# Yan Tong — An Unusual Archive
 
-A personal portfolio website with an "Apple Event meets Mr. Robot" aesthetic.
+A single-page portfolio built as an editorial archive with a tarot-inspired hero, responsive typography and lightweight interactions. Plain HTML, CSS and JavaScript; no build step.
 
-## Features
-
-- **Terminal Intro**: Hacker-style boot sequence that transitions into a modern glassmorphism UI
-- **Bento Grid Layout**: Apple-inspired project showcase with interactive hover effects
-- **3D Tilt Effects**: Hero card responds to mouse movement
-- **Glitch Animations**: Project titles have cyberpunk glitch effects on hover
-- **Reveal Animations**: Content animates in as you scroll
-- **Easter Egg**: Hidden terminal at bottom-right — type `whoami`, `run easter_egg.sh`, or `hamster` for a surprise
-
-## Adding Project Images
-
-Replace the placeholder images by adding your files to the root directory:
-
-```
-/Portfolio/
-├── index.html
-├── placeholder-mylayak.jpg    # MyLayak app screenshot
-├── placeholder-ekyc.jpg        # eKYC demo screenshot
-├── placeholder-luna.jpg        # LUNA app screenshot
-├── placeholder-jetcycle.jpg    # JetCycle product photo
-├── placeholder-sparkathon.jpg  # Sparkathon 2025 team photo
-├── placeholder-godamlah.jpg    # Godamlah! 2.0 team photo
-└── placeholder-blueprint.jpg   # Blueprint Hackathon photo
-```
-
-The images will automatically load when present. Otherwise, styled placeholders appear.
-
-## Local Preview
-
-Simply open `index.html` in your browser:
+## Local preview
 
 ```bash
-open index.html
+python3 -m http.server 8765
 ```
 
-Or use a local server:
+Open http://localhost:8765/.
 
-```bash
-python3 -m http.server 8000
-# Visit http://localhost:8000
-```
+## Interaction
 
-## Deploy
+- A custom wand cursor leaves an ink-and-brass particle trail on desktop. Clicking casts sparks.
+- Moving over the cover reveals hidden ink. The three tarot cards respond to the pointer.
+- Each card is a button: click, tap or press Enter to turn it and reveal a note. Press Escape to turn it back.
+- Project files expand on click. On desktop, hovering over a project with existing media shows a floating preview.
+- Reduced-motion preferences turn off decorative motion.
 
-### GitHub Pages
+## Content and images
 
-1. Push to a repository
-2. Enable GitHub Pages in Settings → Pages
-3. Select main branch as source
+The site content follows `CHYEYANTONGLATEST.pdf`; all résumé links point to that file. Existing project media are reused.
 
-### Vercel/Netlify
+`avatar-wizard-v1.png` is an illustrated, magic-hat portrait based on the local `profile.jpg`. It appears as a small author stamp on desktop and mobile.
 
-Drag and drop the folder or connect your repo.
+CareerX-Ray, Qubee and AdventureX use the supplied `career-xray.png`, `qubee.png` and `adventurex.png` images. All three also appear in the desktop hover preview.
 
----
-
-Built with Tailwind CSS + Vanilla JS for maximum performance.
+Main files: `index.html`, `style.css`, `app.js`.
