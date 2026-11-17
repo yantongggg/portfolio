@@ -152,7 +152,7 @@
 ## EXTRACURRICULAR
 
 - **Bug Bounty Researcher** — Active on Bugcrowd; security findings on GitHub open-source repositories
-- **CTF Competitions** — rEntas CTF, picoCTF 2024
+- **CTF Competitions** — 6th of 291 teams (solo, Fighters division), CSCTF 2026: Total Warfare by Chronos Security, Nov 2026; rEntas CTF; picoCTF 2024
 - **Solana Hackathon** — Built blockchain trading platform using Web3 tools
 - **Google Hackathon** — Developed Foodie Map, a location-based food discovery tool with Notion integration
 
